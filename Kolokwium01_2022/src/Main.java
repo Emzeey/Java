@@ -13,6 +13,7 @@ public class Main {
         System.out.println(myCart.getPrice(2010, 3));
         System.out.println(myCart.getPrice(2010, 4));
         System.out.println(myCart.getPrice(2010, 5));
+        System.out.println(myCart.getPrice(2010, 6));
         System.out.println(myCart.getInflation(2010, 1, 2010, 3));
     }
 }
