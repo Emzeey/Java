@@ -1,6 +1,9 @@
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public abstract class Country {
@@ -37,12 +40,42 @@ public abstract class Country {
             Scanner deathScanner = new Scanner(deathsPath);
             Scanner casesScanner = new Scanner(confirmedCasesPath);
 
+            getCountryColumns(deathScanner.toString(), countryName);
+
             deathScanner.close();
             casesScanner.close();
-        } catch (Exception e) {
+        } catch (IOException | CountryNotFoundException e) {
 
         }
 
         return country;
+    }
+
+    private static CountryColumns getCountryColumns(String firstCsvRow, String countryToFind) throws CountryNotFoundException{
+        String[] splitRow = firstCsvRow.split(";");
+        int sum = 1;
+        boolean firstFound = false;
+        int firstFountIndex = -1;
+        for(int i=0; i<splitRow.length; i++) {
+            if(splitRow[i].equals(countryToFind) && !firstFound) {
+                firstFound = true;
+                firstFountIndex = i;
+            }
+            if(splitRow[i].equals(countryToFind) && firstFound) {
+                sum++;
+            }
+        }
+        if(firstFountIndex == -1) throw new CountryNotFoundException(countryToFind);
+        return new CountryColumns(firstFountIndex, sum);
+    }
+
+    private static class CountryColumns {
+        public final int firsColumnIndex;
+        public final int columnCount;
+
+        public CountryColumns(int firsColumnIndex, int columnCount) {
+            this.firsColumnIndex = firsColumnIndex;
+            this.columnCount = columnCount;
+        }
     }
 }
