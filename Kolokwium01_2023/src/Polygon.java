@@ -11,9 +11,14 @@ public class Polygon {
     public boolean insidePoint(Point point){
         int counter = 0;
         List<Point> pointsCopy = points;
-        for(int i=0; i<pointsCopy.size()-1; i++) {
+        for(int i=0; i<pointsCopy.size(); i++) {
             Point first = pointsCopy.get(i);
-            Point second = pointsCopy.get(i+1);
+            Point second;
+            if(i == pointsCopy.size()-1) {
+                second = pointsCopy.getFirst();
+            } else {
+                second = pointsCopy.get(i+1);
+            }
             if(first.getY() > second.getY()) {
                 Point temp = first;
                 first = second;
