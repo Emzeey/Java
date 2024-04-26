@@ -1,4 +1,4 @@
-# Java
+# Wprowadzenie
 Rozwiązania do różnych zadań z Programowania Obiektowego w Javie :)
 
 # Przydatne linki
